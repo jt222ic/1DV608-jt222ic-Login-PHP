@@ -1,16 +1,40 @@
 <?php
 
 class LoginView {
-	private static $login = 'LoginView::Login';
-	private static $logout = 'LoginView::Logout';
-	private static $name = 'LoginView::UserName';
-	private static $password = 'LoginView::Password';
+	private static $login = 'LoginView::Login';                                 //döne
+	private static $logout = 'LoginView::Logout';                               //döne
+	private static $name = 'LoginView::UserName';                               //döne
+	private static $password = 'LoginView::Password';                            //döne
 	private static $cookieName = 'LoginView::CookieName';
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	private $model;
+
+	public function __construct($m)
+	{
+		$this->model= $m;
+	}
+
+
+	public function checkLogin() {
+		if(isset($_POST[self::$login]))                                                                         // vill returnera en bool kolla om fälten är skriven
+		{
+			return true;
+		}
+		return false;
+	}
+
+
+	public function GetUsername(){                       //returnera namn
+		return $_POST[self::$name];
+	}
 	
+	public function GetPassword(){                        // returnera lösenord
+		return $_POST[self::$password];
+	}
+
 
 	/**
 	 * Create HTTP response
