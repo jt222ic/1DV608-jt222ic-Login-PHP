@@ -12,9 +12,9 @@ class LoginView {
 
 	private $model;
 
-	public function __construct($m)
+	public function __construct($lm)
 	{
-		$this->model= $m;
+		$this->lm = $lm;
 	}
 
 
@@ -44,7 +44,11 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
+		
 		$message = '';
+		$message = $this->lm->returnMessage();
+		
+		
 		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
