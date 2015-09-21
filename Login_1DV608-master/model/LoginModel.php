@@ -6,6 +6,10 @@ class LoginModel {
     private  $loginuserModel;
     private $loginpasswordModel;
     
+    
+    private static $FullUsername = "Admin";                /// varför statiska???? för att alla medlemmar ska komma åt? //
+    private static $FullPassword = "Password";
+    
   
     
     private $messageModel;
@@ -13,39 +17,49 @@ class LoginModel {
     
     public function __construct(){
         
+        if(!isset($_SESSION['LoginSession']))
+        {
+            $S_SESSION['LoginSession']= false;
+        }
+        
     }
 
     public function conversion($loginuser, $loginpassword) 
     {
        trim($loginuser);                                  // omvandlar och instansiera nya variabler
        trim($loginpassword);                       
-       $message = "";                                                  
+       //$message = "";                                                  
                 if($loginuser == "" && $loginpassword == "")
                {
-               $message = "Username och Password saknas";                           // korrekt 
+               throw new Exception("username and password missing");                         // korrekt 
                }
-               
-               else if(!empty($loginuser && $loginpassword) && !$loginuser == "Jan" && $loginpassword =="tran")
+               else if($loginuser ==="")
                {
-                   $message ="fel 1000%";
+                   throw new Exception("username is missing");
                }
-               else if(!$loginuser == "Jan" && $loginpassword =="tran")
+               else if ($loginpassword ==="")
                {
-                   $message = " vafan";
+                  throw new Exception("password is missing");
+               }
+               else if($loginuser != self::$FullUsername || $loginpassword != self::$FullPassword)
+               {
+                  throw new Exception("Wrong Username and password"); 
+                   
                }
                
-                  else if($loginuser == "" && !$loginpassword == "")
-                  {
-                       $message = "Username saknas";
-                   }
-                    else if ($logipassword == "" && !$loginuser == "")    
-                                                                                      // if empty
-                   {
-                   $message = "Password saknas";
+               else if(isset($S_SESSION['LoginSession'])&&$S_SESSION['LoginSession'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
+               {                                                                                                    // tomt error meddelandet sätts i statusen
+                   throw new Exception();                      
+               }
+               else
+               {
+                   $S_SESSION['LoginSession'] = true;
                }
                
-                if($loginuser == "Jan" && $loginpassword == "tran" )
-                        { $message = "Right biatch!";}
+               
+               
+              
+             
                 
        
         
@@ -57,10 +71,10 @@ class LoginModel {
         
         
      
-    }
+   }
     public function returnMessage()
     {
-        return $this->message;
- 
+        return $this->message;                          // acess metoden för att returnera meddelandet
+  
     }
 }

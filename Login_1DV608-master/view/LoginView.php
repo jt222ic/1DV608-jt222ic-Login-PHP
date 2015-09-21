@@ -11,6 +11,9 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 
 	private $model;
+	
+	
+	private static $BigText ='';
 
 	public function __construct($lm)
 	{
@@ -36,17 +39,30 @@ class LoginView {
 	}
 
 
-	/**
+/**
 	 * Create HTTP response
 	 *
 	 * Should be called after a login attempt has been determined
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
+	 
+	 // tar emot exception vid message skapa en funktion för det
+	 
+	 
+	 public function StatusMessage($e)                     // tar emot exception  och Getmessage finns i Exception klassen
+	 {
+	 	$BigText = $e;
+	 }
+	 
+	 
 	public function response() {
-		
 		$message = '';
-		$message = $this->lm->returnMessage();
+		$message = self::$BigText;
+		
+		
+		
+	//	$message = $this->lm->GetMessage();       // hämtar medlemmen från konstruktorn lm och hämta metoden som finns i lm , lm = login view($lm)
 		
 		
 		

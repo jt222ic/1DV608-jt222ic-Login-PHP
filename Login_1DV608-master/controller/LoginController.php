@@ -29,11 +29,19 @@ class LoginController{
     {
         if($this->view->checkLogin())
         {
+            try
+            {
+            
             $this->loginuser = $this->view->GetUsername();
             $this->loginpassword = $this->view->GetPassword();
             $this->model->conversion($this->loginuser, $this->loginpassword);
             
-            echo "standby";                             //submit vid start men Checklogin kommer in senare om man klickar in på submit
+            echo "standby";
+            }
+           catch(EXCEPTION $e)                                     // kastar till response meddelandet
+           {
+               $this->view->StatusMessage($e->getMessage());                         //skicka in status meddelandet till Getmessage.
+           }//submit vid start men Checklogin kommer in senare om man klickar in på submit
            
         }
         else{
