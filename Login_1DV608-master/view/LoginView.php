@@ -52,12 +52,12 @@ class LoginView {
 	 
 	 public function StatusMessage($e)                     // tar emot exception  och Getmessage finns i Exception klassen
 	 {
-	 	$BigText = $e;
+	 	 self::$BigText = $e;
 	 }
 	 
 	 
 	public function response() {
-		$message = '';
+		
 		$message = self::$BigText;
 		
 		
@@ -66,8 +66,8 @@ class LoginView {
 		
 		
 		
-		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
+		//$response = $this->generateLoginFormHTML($message);
+		$response = $this->generateLogoutButtonHTML($message);
 		return $response;
 	}
 

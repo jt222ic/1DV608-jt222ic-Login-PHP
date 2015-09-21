@@ -32,5 +32,5 @@ $lc->submit();
 
 
 
-$lv->render(false, $v, $dtv);
+$lv->render(false, $v, $dtv);     // ska säga att det blir true
 

@@ -27,8 +27,8 @@ class LoginController{
     
     public function submit()
     {
-        if($this->view->checkLogin())
-        {
+        if($this->view->checkLogin())   //     tryckt på submit knappe
+        { echo "standby";
             try
             {
             
@@ -36,7 +36,7 @@ class LoginController{
             $this->loginpassword = $this->view->GetPassword();
             $this->model->conversion($this->loginuser, $this->loginpassword);
             
-            echo "standby";
+            
             }
            catch(EXCEPTION $e)                                     // kastar till response meddelandet
            {

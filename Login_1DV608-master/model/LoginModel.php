@@ -28,8 +28,8 @@ class LoginModel {
     {
        trim($loginuser);                                  // omvandlar och instansiera nya variabler
        trim($loginpassword);                       
-       //$message = "";                                                  
-                if($loginuser == "" && $loginpassword == "")
+                                                                                        //$message = "";                                                  
+                if($loginuser === "" && $loginpassword === "")
                {
                throw new Exception("username and password missing");                         // korrekt 
                }
@@ -47,14 +47,14 @@ class LoginModel {
                    
                }
                
-               else if(isset($S_SESSION['LoginSession'])&&$S_SESSION['LoginSession'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
-               {                                                                                                    // tomt error meddelandet sätts i statusen
-                   throw new Exception();                      
-               }
-               else
-               {
-                   $S_SESSION['LoginSession'] = true;
-               }
+              else if(isset($S_SESSION['LoginSession'])&&$S_SESSION['LoginSession'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
+              {                                                                                                    // tomt error meddelandet sätts i statusen
+                  throw new Exception();                      
+              }
+              else
+              {
+                  $S_SESSION['LoginSession'] = true;
+              }
                
                
                
