@@ -1,7 +1,7 @@
 <?php
 
 
-session_start();                             // startar session först
+session_start();                            // startar session först
 //INCLUDE THE FILES NEEDED...
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
@@ -32,5 +32,5 @@ $lc->submit();
 
 
 
-$lv->render(false, $v, $dtv);     // ska säga att det blir true
+$lv->render($lm->LoginSubmit(), $v, $dtv);     // ska säga att det blir true
 

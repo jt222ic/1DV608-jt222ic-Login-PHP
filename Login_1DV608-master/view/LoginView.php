@@ -14,10 +14,14 @@ class LoginView {
 	
 	
 	private static $BigText ='';
+	
+
 
 	public function __construct($lm)
 	{
 		$this->lm = $lm;
+		
+	
 	}
 
 
@@ -27,6 +31,13 @@ class LoginView {
 			return true;
 		}
 		return false;
+	}
+	
+	public function Logout(){
+		if(isset($_POST[self::$logout]))
+		{
+			return true;
+		}
 	}
 
 
@@ -62,13 +73,19 @@ class LoginView {
 		
 		
 		
-	//	$message = $this->lm->GetMessage();       // hämtar medlemmen från konstruktorn lm och hämta metoden som finns i lm , lm = login view($lm)
+                                                           	//	$message = $this->lm->GetMessage();       // hämtar medlemmen från konstruktorn lm och hämta metoden som finns i lm , lm = login view($lm)
 		
 		
-		
-		//$response = $this->generateLoginFormHTML($message);
+		if($this->lm->LoginSubmit() == true)
+		{
+		 
+		$response = $this->generateLoginFormHTML($message);
+		}
+		else{
 		$response = $this->generateLogoutButtonHTML($message);
+		}
 		return $response;
+		
 	}
 
 	/**

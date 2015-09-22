@@ -19,21 +19,18 @@ class LoginModel {
         
         if(!isset($_SESSION['LoginSession']))
         {
-            $S_SESSION['LoginSession']= false;
+            $_SESSION['LoginSession'] = false;
         }
         
     }
 
     public function conversion($loginuser, $loginpassword) 
     {
-       trim($loginuser);                                  // omvandlar och instansiera nya variabler
+       trim($loginuser);                                             // omvandlar och instansiera nya variabler
        trim($loginpassword);                       
                                                                                         //$message = "";                                                  
-                if($loginuser === "" && $loginpassword === "")
-               {
-               throw new Exception("username and password missing");                         // korrekt 
-               }
-               else if($loginuser ==="")
+                
+                if($loginuser ==="")
                {
                    throw new Exception("username is missing");
                }
@@ -47,34 +44,45 @@ class LoginModel {
                    
                }
                
-              else if(isset($S_SESSION['LoginSession'])&&$S_SESSION['LoginSession'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
+               
+             else  if($_SESSION['LoginSession'] &&$_SESSION['LoginSession'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
               {                                                                                                    // tomt error meddelandet sätts i statusen
                   throw new Exception();                      
               }
+
               else
-              {
-                  $S_SESSION['LoginSession'] = true;
-              }
-               
-               
-               
-              
-             
-                
-       
-        
-    
-    
-      
-                                                               //omvandlar och skapa nya instansier 
-         $this->message = $message;
-        
-        
-     
+                 {
+                  $_SESSION['LoginSession'] = true;
+                  
+                 }
+                 return $_SESSION['LoginSession'];
    }
-    public function returnMessage()
-    {
-        return $this->message;                          // acess metoden för att returnera meddelandet
-  
-    }
+   
+   public function LoginSubmit(){
+       
+       if($_SESSION['LoginSession'])
+       {
+           
+           return $_SESSION['LoginSession'];
+       }
+      
+       
+       return false;
+       
+       
+       
+   }
+   
+   
+//   public function LogoutSystem(){
+       
+//       if(!$_SESSION['LoginSession'])
+//       {
+           
+//       }
+   
+//   }
+   
+   
+   
 }
