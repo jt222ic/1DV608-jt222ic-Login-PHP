@@ -11,9 +11,11 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 
 	private $model;
-	
+
 	
 	private static $BigText ='';
+	
+
 	
 
 
@@ -23,6 +25,8 @@ class LoginView {
 		
 	
 	}
+	
+	
 
 
 	public function checkLogin() {
@@ -42,14 +46,13 @@ class LoginView {
 
 
 	public function GetUsername(){                       //returnera namn
-		return $_POST[self::$name];
+		return isset($_POST[self::$name]) ? $_POST[self::$name] : "";         /// kollar i arrayen om det innehåller Namn med isset;
 	}
 	
 	public function GetPassword(){                        // returnera lösenord
 		return $_POST[self::$password];
 	}
-
-
+	
 /**
 	 * Create HTTP response
 	 *
@@ -59,31 +62,40 @@ class LoginView {
 	 */
 	 
 	 // tar emot exception vid message skapa en funktion för det
+	 public function WelcomeText()
+	 {
+	 	self::$BigText = 'Welcome';
+	 	// $this->response(self::$whalecum);
+	 }
 	 
-	 
+	 public function ByeByeText()
+	 {
+	 	self::$BigText = 'Bye bye!';
+	 	  //$this->response(self::$successText);
+	 }
 	 public function StatusMessage($e)                     // tar emot exception  och Getmessage finns i Exception klassen
 	 {
 	 	 self::$BigText = $e;
 	 }
 	 
-	 
 	public function response() {
 		
 		$message = self::$BigText;
+	    // $message = self::$successText;
+	    // $message = self::$whalecum;
+			
 		
-		
-		
-                                                           	//	$message = $this->lm->GetMessage();       // hämtar medlemmen från konstruktorn lm och hämta metoden som finns i lm , lm = login view($lm)
-		
-		
-		if($this->lm->LoginSubmit() == true)
+		if($this->lm->LoginSubmit())
 		{
-		 
-		$response = $this->generateLoginFormHTML($message);
+			
+		 	$response = $this->generateLogoutButtonHTML($message);
+		
 		}
 		else{
-		$response = $this->generateLogoutButtonHTML($message);
+	
+	$response = $this->generateLoginFormHTML($message);
 		}
+		
 		return $response;
 		
 	}
@@ -115,7 +127,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'.$this->GetUsername().'" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />

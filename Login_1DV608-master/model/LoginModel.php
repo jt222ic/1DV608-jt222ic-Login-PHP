@@ -7,8 +7,8 @@ class LoginModel {
     private $loginpasswordModel;
     
     
-    private static $FullUsername = "Admin";                /// varför statiska???? för att alla medlemmar ska komma åt? //
-    private static $FullPassword = "Password";
+    public static $RealUsername = 'Admin';                /// varför statiska???? för att alla medlemmar ska komma åt? //
+    public static $RealPassword = 'Password';
     
   
     
@@ -17,9 +17,9 @@ class LoginModel {
     
     public function __construct(){
         
-        if(!isset($_SESSION['LoginSession']))
+        if(!isset($_SESSION['isLoggedIn']))
         {
-            $_SESSION['LoginSession'] = false;
+            $_SESSION['isLoggedIn'] = false;
         }
         
     }
@@ -32,41 +32,39 @@ class LoginModel {
                 
                 if($loginuser ==="")
                {
-                   throw new Exception("username is missing");
+                   throw new Exception("Username is missing");
                }
                else if ($loginpassword ==="")
                {
-                  throw new Exception("password is missing");
+                  throw new Exception("Password is missing");
                }
-               else if($loginuser != self::$FullUsername || $loginpassword != self::$FullPassword)
+               else if($loginuser != self::$RealUsername || $loginpassword != self::$RealPassword)
                {
-                  throw new Exception("Wrong Username and password"); 
+                  throw new Exception("Wrong name or password"); 
                    
                }
                
                
-             else  if($_SESSION['LoginSession'] &&$_SESSION['LoginSession'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
+              else if($_SESSION['isLoggedIn'] &&$_SESSION['isLoggedIn'] == true)                      // kasta undantag om det är en repost meddelandet genom att kasta undatag
               {                                                                                                    // tomt error meddelandet sätts i statusen
                   throw new Exception();                      
               }
 
               else
                  {
-                  $_SESSION['LoginSession'] = true;
+                  $_SESSION['isLoggedIn'] = true;
                   
                  }
-                 return $_SESSION['LoginSession'];
+                 
    }
    
    public function LoginSubmit(){
        
-       if($_SESSION['LoginSession'])
+       if($_SESSION['isLoggedIn'])
        {
            
-           return $_SESSION['LoginSession'];
+           return $_SESSION['isLoggedIn'];
        }
-      
-       
        return false;
        
        
@@ -74,14 +72,18 @@ class LoginModel {
    }
    
    
-//   public function LogoutSystem(){
+  public function LogoutSystem(){
        
-//       if(!$_SESSION['LoginSession'])
-//       {
-           
-//       }
+      if(!$_SESSION['isLoggedIn'])
+      {
+           throw new Exception();
+      }
+      else 
+      {
+          $_SESSION['isLoggedIn']=false;
+      }
    
-//   }
+  }
    
    
    
